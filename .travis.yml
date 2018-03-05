@@ -1,0 +1,18 @@
+sudo: required 
+language: cpp
+services:
+  - docker
+env:
+  global:
+    secure: "bLX69PrBC58LFxrhtRMcGEa27l2suGCuOG7BRwkpJ0B0tL2RhXc+TqtqTYpq2hvoyk8GfkYjhOY7sYck3lHo4zhWGK5Ioc+Vk7xo2iKGH7rLTupJUHAYJZQ3C8awvUYP4aef3H0Oq+U+DID9vR0c/YbKGiWa5OOhVuDef5gio+pg7S3SPTvZPtRe7MrYQTDYYfH5OTRtOmLhKIxPjbyVUiHR7+N4bPjs7qly/PFprSZyecEopqeQxFihUsjQlrLtiUyjDp/LW4M8KpS7AWaiov9GC3Q5+ro8CdB3TlzNsCTAlaGqQ6saO8YVcEd6dVSTDzBIdJTP0J3v7KeEDa/ciTO3KGf6X0K8EEY0WWLFZE4H/TdiqU4jJntZTILUEAtRNUONPGmrtXjzvvHKXdXrrcd/Mtctx7+WX8H5dJxYnbEXTrPQfcrXQ5hoPphr8T4Q2Im0U/Nw8JgEkQhwdIo6p0FFfEQIWv1NHez22n5bbNMIeMDcFprdMhIyDonzYUqYwTtbp/6hncNIx3/K9YPDSqo89gmKtba13XimFfpKFIr77I3NL7qeK1dKTdARamtaXquVU+ny+z2dE9y7i7LN2E4URCU2GLC5NixFeCmNob+jEQF9MKkeHMuI4wordksDtS1rznfStBRdcSmp6gfT6bwzq7nn/CCb12ZTCRBG4Bg=" #BINTRAY_KEY
+
+before_install:
+  - mkdir $(pwd)/build
+  - docker pull spielhuus/toolchain:latest
+script:
+  - sudo docker run -itd -v $(pwd)/repo:/repo --name conan_build spielhuus/toolchain /bin/bash 
+  - sudo docker exec conan_build /bin/bash -c "git clone https://github.com/spielhuus/conan-hiredis.git /repo"
+  - sudo docker exec conan_build /bin/bash -c "conan user -p $BINTRAY_KEY -r conan-cpp squawkcpp"
+  - sudo docker exec conan_build /bin/bash -c "cd /repo && conan export . conan-cpp/latest && conan install Hiredis/0.13.3@conan-cpp/latest --build=Hiredis && conan upload Hiredis/0.13.3@conan-cpp/latest --all -r=conan-cpp"
+  - sudo docker rm -f conan_build
+
