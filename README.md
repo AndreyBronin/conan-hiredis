@@ -1,24 +1,28 @@
 ## This repository holds a conan recipe for hiredis.
 
 [![Build Status](https://travis-ci.org/spielhuus/conan-hiredis.svg?branch=master)](https://travis-ci.org/spielhuus/conan-hiredis)
-[ ![Download](https://api.bintray.com/packages/squawkcpp/conan-cpp/Hiredis%3Aconan-cpp/images/download.svg) ](https://bintray.com/squawkcpp/conan-cpp/Hiredis%3Aconan-cpp)
+[ ![Download](https://api.bintray.com/packages/squawkcpp/conan-cpp/hiredis%3Aconan-cpp/images/download.svg) ](https://bintray.com/squawkcpp/conan-cpp/hiredis%3Aconan-cpp)
 
 [Conan.io](https://conan.io) package for [hiredis](https://github.com/redis/hiredis) project
 
-The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/squawkcpp/conan-cpp/Hiredis%3Aconan-cpp).
+The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/squawkcpp/conan-cpp/hiredis%3Aconan-cpp).
 
 ## Use this package
 
 ### Basic setup
 
-    $ conan install Hiredis/0.13.3@conan-cpp/latest
+    $ conan install hiredis/0.13.3@conan-cpp/latest
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    Hiredis/0.13.3@conan-cpp/latest
+    hiredis/0.13.3@conan-cpp/latest
+
+    [options]
+    hiredis:shared: [True, False]
+    hiredis:disable_threads: [True, False]
 
     [generators]
     txt

@@ -3,9 +3,9 @@ from conans.tools import download, untargz
 import os
 
 class HiredisConan(ConanFile):
-    name = "Hiredis"
+    name = "hiredis"
     version = "0.13.3"
-    description = "Hiredis is a minimalistic C client library for the Redis database."
+    description = "hiredis is a minimalistic C client library for the Redis database."
     url = "https://github.com/redis/hiredis"
     license = "BSD 3-clause \"New\" or \"Revised\" License"
     FOLDER_NAME = 'hiredis-%s' % version
