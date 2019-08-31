@@ -4,7 +4,7 @@ import os
 
 class HiredisConan(ConanFile):
     name = "hiredis"
-    version = "0.13.3"
+    version = "0.14.0"
     description = "hiredis is a minimalistic C client library for the Redis database."
     url = "https://github.com/redis/hiredis"
     license = "BSD 3-clause \"New\" or \"Revised\" License"
